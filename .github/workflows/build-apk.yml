@@ -1,0 +1,57 @@
+name: Android APK Derle (PDF Stüdyo v1.0.4)
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main, master ]
+
+jobs:
+  build-apk:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Depoyu indir
+        uses: actions/checkout@v4
+
+      - name: Node.js kur
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Java 17 kur
+        uses: actions/setup-java@v5
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Çevrimdışı web dosyalarını çıkar
+        run: |
+          mkdir -p www
+          unzip -o PDF_Studyo_OFFLINE_v1.0.4.zip -d www
+
+      - name: Bağımlılıkları yükle
+        run: npm install
+
+      - name: QPDF WASM dosyalarını ekle
+        run: |
+          mkdir -p www/vendor/qpdf-wasm
+          cp -r node_modules/@neslinesli93/qpdf-wasm/dist/* www/vendor/qpdf-wasm/
+
+      - name: Android projesini oluştur ve senkronize et
+        run: |
+          if [ ! -d "android" ]; then
+            npx cap add android
+          fi
+          npx cap sync android
+
+      - name: Debug APK derle
+        run: |
+          cd android
+          chmod +x gradlew
+          ./gradlew assembleDebug
+
+      - name: APK dosyasını yayınla
+        uses: actions/upload-artifact@v4
+        with:
+          name: PDF-Studyo-v1.0.4-APK
+          path: android/app/build/outputs/apk/debug/app-debug.apk
+          
