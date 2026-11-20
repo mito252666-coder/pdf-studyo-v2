@@ -1,0 +1,11 @@
+{
+  "appId": "com.pdfstudyo.app",
+  "appName": "PDF Stüdyo",
+  "webDir": "www",
+  "bundledWebRuntime": false,
+  "android": {
+    "allowMixedContent": false,
+    "captureInput": true,
+    "webContentsDebuggingEnabled": false
+  }
+}
