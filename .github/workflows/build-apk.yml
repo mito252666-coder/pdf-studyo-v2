@@ -26,7 +26,7 @@ jobs:
       - name: Çevrimdışı web dosyalarını çıkar
         run: |
           mkdir -p www
-          unzip -o PDF_Studyo_OFFLİNE_v1.0.5.zip -d www
+          unzip -o PDF_Studyo_OFFLINE_v1.0.5.zip -d www
           
 
       - name: Bağımlılıkları yükle
