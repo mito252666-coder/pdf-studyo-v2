@@ -26,7 +26,8 @@ jobs:
       - name: Çevrimdışı web dosyalarını çıkar
         run: |
           mkdir -p www
-          unzip -o PDF_Studyo_OFFLINE_v1.0.4.zip -d www
+          unzip -o v1.0.5.zip -d www
+          
 
       - name: Bağımlılıkları yükle
         run: npm install
